@@ -1,0 +1,40 @@
+AOR_SERVER
+==========
+
+This server reads a dump file of SIP registrations and listen on a TCP socket and can make lookup requests, responding with the corresponding JSON object after receiving an AOR (addressOfRecord) from the client.
+
+Compilation:
+------------
+> make clean  (for cleanning)
+> make        (for building)
+ 
+ The binary is created on "bin" directory.
+ 
+ Note: for "debug" take off the comments on "#define _DEBUG" in aor_server.h file OR change the Makefile.
+ 
+Execution:
+----------
+
+
+> ./aor_server [<Port>]
+
+ The server reads the file "regs.txt" on local directory and listen on "Port" provided as program parameter (default=5000)
+
+ Note: (1) errors and debug messages are sent to screen
+       (2) If a TCP connection is inactive for more than 10 seconds, the server closes it.
+       (3) If an AOR cannot be found, the server returns an empty line.
+
+      
+Test:
+-----
+A Telnet can be used as a client TCP for testing. 
+Ex.:
+> telnet localhost 5000
+
+For example, if a client sends:
+0142e2fa3543cb32bf000100620002
+
+The server will return:
+{"addressOfRecord":"0142e2fa3543cb32bf000100620002","tenantId":"0127d974-f9f3-0704-2dee-000100420001","uri":"sip:0142e2fa3543cb32bf000100620002@10.21.21.127;jbcuser=cpe70;x-ebcid=AsfApcJMpgA","contact":"<sip:0142e2fa3543cb32bf000100620002@10.21.21.127;jbcuser=cpe70;x-ebcid=AsfApcJMpgA>;methods=\"INVITE, ACK, BYE, CANCEL, OPTIONS, INFO, MESSAGE, SUBSCRIBE, NOTIFY, PRACK, UPDATE, REFER\"","path":["<sip:Mi0xOTkuMTkyLjE2NS4xOTQtMTk2MjI@10.119.255.103:5060;lr>"],"source":"199.192.165.194:19622","target":"162.250.60.10:5061","userAgent":"polycom.vvx.600","rawUserAgent":"PolycomVVX-VVX_600-UA/5.4.5.6770","created":"2016-12-12T22:40:40.764Z","lineId":"013db2ba-2175-6d29-6157-000100620002"}
+
+
