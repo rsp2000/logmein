@@ -10,12 +10,13 @@ Compilation:
  
  The binary is created on "bin" directory.
  
- Note: for "debug" take off the comments on "#define _DEBUG" in aor_server.h file OR change the Makefile.
+ Note: (1) for "debug" take off the comments on "#define _DEBUG" in aor_server.h file OR change the Makefile.
+       (2) It uses the library JSMN for parsing JSON
  
 Execution:
 ----------
 
-
+> cd ./bin
 > ./aor_server [<Port>]
 
  The server reads the file "regs.txt" on local directory and listen on "Port" provided as program parameter (default=5000)
